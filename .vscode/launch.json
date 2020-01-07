@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - SimulatePandemic",
+            "request": "launch",
+            "mainClass": "Pandemic.Gameboard.SimulatePandemic",
+            "projectName": "PLH517_Project"
+        }
+    ]
+}
