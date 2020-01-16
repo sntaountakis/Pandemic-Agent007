@@ -24,7 +24,6 @@ public class Moscow extends City {
 			this.neighbors.add(Variables.istanbul);
 			this.neighbors.add(Variables.stpeterburg);
 			this.neighbors.add(Variables.tehran);
-			this.neighbors.add(Variables.baghdad);
 		}	
 	}
 }

@@ -103,6 +103,7 @@ public class GameBoard implements Cloneable{
         //construct the neighbors for every city
         setupNeighbors();
         Collections.shuffle(cities);
+        Collections.shuffle(playerPile);
         //setup the ResearchCentres
         placeInitialResearchCentres();
         playerPieces = new Piece[4];
@@ -315,20 +316,32 @@ public class GameBoard implements Cloneable{
         z=0;
         for (z=0;z<playerPieces.length;z++)//for finding pieces of QUARANTINE_SPECIALIST
         {
-        	if (playerPieces[z].owner.getPlayerRole().equals("QUARANTINE_SPECIALIST")) 
+        	if (playerPieces[z].owner.getPlayerRole().equals("QUARANTINE_SPECIALIST")) {        		
         		break;        	
+        	}
         }
         i = 0;
         while (i< infectionRate) {
             i = i + 1;
             City cityToInfect = infectPile.get(0);  
-            checkCities = (ArrayList<City>) playerPieces[z].getLocationConnections().clone();           
+            checkCities = ((ArrayList<City>) playerPieces[z].getLocationConnections().clone());           
             //check all connected city for QUARANTINE_SPECIALIST
-            if (checkCities.contains(cityToInfect)) {
-            	infectDiscardPile.add(cityToInfect);
-   	     	 	infectPile.remove(0);             	
+            int k;
+            for( k=0;k<checkCities.size();k++) {
+            	if(checkCities.get(k).getName().equals(cityToInfect.getName())) {
+            		infectDiscardPile.add(cityToInfect);
+       	     	 	infectPile.remove(0);  
+       	     	 	System.out.println("Won't place a cube to "+cityToInfect.getName() +" because of quarantine_specialist");
+       	     	 	break;
+            	}
             }
-            else
+//            if (checkCities.contains(cityToInfect)) {
+//            	infectDiscardPile.add(cityToInfect);
+//   	     	 	infectPile.remove(0);    
+//   	     	 	System.out.println("---");
+//   	     	 	System.out.println("Won't place a cube to "+cityToInfect.getName() +"because of quarantine_specialist");
+//            }
+            if(k==checkCities.size())
             {
             	System.out.println("INFECTING " + cityToInfect.getName() + " with 1 " + cityToInfect.getColour() + " cubes.");
             	infectCity(cityToInfect);  
@@ -361,12 +374,17 @@ public class GameBoard implements Cloneable{
 	             		break;	             	
 	             }
 	             checkCities = (ArrayList<City>) playerPieces[k].getLocationConnections().clone();
+	             ArrayList<String>   checkCities1 = new ArrayList<String>();
+	             for(int m=0;m<checkCities.size();m++) {
+	             	checkCities1.add(checkCities.get(m).getName());
+	             }
+	             checkCities1.add(playerPieces[k].getLocation().getName());
 	             int e;
 	             for ( e=0;e<infectCity.getNeighbors().size();e++)
 		         {
 	            	 int q;
 	            	 for ( q=0;q<cities.size();q++) {	            		 
-	        			 if (cities.get(q).getName().equals(infectCity.getNeighbors().get(e).getName()) && (!checkCities.contains(infectCity.getNeighbors().get(e)))) {
+	        			 if (cities.get(q).getName().equals(infectCity.getNeighbors().get(e).getName()) && (!checkCities1.contains(infectCity.getNeighbors().get(e).getName()))) {
 	        				//System.out.println("I have found " + infectCity.getName() + " and it is at position " + x + " within the cities array");
 	        				 if (cities.get(q).addCube(infectCity.getColour())) {
 	        					 System.out.println("OUTBREAK");
@@ -532,11 +550,16 @@ public class GameBoard implements Cloneable{
 	            		break;	             	
 	            }
 	            checkCities = (ArrayList<City>) playerPieces[k].getLocationConnections().clone();
+	            ArrayList<String>   checkCities1 = new ArrayList<String>();
+	            for(int m=0;m<checkCities.size();m++) {
+	             	checkCities1.add(checkCities.get(m).getName());
+	            }
+	            checkCities1.add(playerPieces[k].getLocation().getName());
         		int e;
   	            for (e=0;e<toInfect.getNeighbors().size();e++)
 		         {
 	            	 for (int z=0;z<cities.size();z++) {	            		 
-	        			 if (cities.get(z).getName().equals(toInfect.getNeighbors().get(e).getName()) && (!checkCities.contains(toInfect.getNeighbors().get(e)))) {
+	        			 if (cities.get(z).getName().equals(toInfect.getNeighbors().get(e).getName()) && (!checkCities1.contains(toInfect.getNeighbors().get(e).getName()))) {
 	        				//System.out.println("I have found " + infectCity.getName() + " and it is at position " + x + " within the cities array");
 	        				 if (cities.get(z).addCube(toInfect.getColour())) {
 	        					 System.out.println("OUTBREAK");

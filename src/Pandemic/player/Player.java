@@ -10,6 +10,7 @@ import Pandemic.variables.Piece;
 import Pandemic.variables.Variables;
 import Pandemic.actions.*;
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 public class Player implements Cloneable{
@@ -49,32 +50,49 @@ public class Player implements Cloneable{
   *draw @param numberOfCards  from playerPile and check if it is epidemic
   *and call @resolveEpidemic() or draw to  @hand()
   */
-  public void drawCard(int numberOfCards)
+  public void drawCard(int numberOfCards, boolean test1)
   {
       // draws a card for the player from the board
       for (int i = 0; i<numberOfCards; i++)
       {
-          if (pandemicBoard.playerPile.size()!= 0)
-          {
-        	 //first element from array list PlayerPile
-              if (pandemicBoard.playerPile.get(0).equals(Variables.isEpidemic)) {            	  
-            	  System.out.println("-----EPIDEMIC DRAWN!-----");
-                  pandemicBoard.resolveEpidemic();//follow the steps for epidemic event
-                  pandemicBoard.playerPile.remove(0);
-                  break;
-              }
-              else 
-              {
-            	 //adds a new card to the players hand.
-            	 hand.add((City) pandemicBoard.playerPile.get(0));
-              }
-              pandemicBoard.playerPile.remove(0);//remove the card from PlayerDeck
-              System.out.println(this.getPlayerName() + " draws a card");
-          }
-          else
-          {
-              System.out.println("no more cards left");
-          }
+    	  if (test1==true)
+    	  {
+    		  // create instance of Random class 
+    	      Random rand = new Random(); 
+    	      int rand_int1 = rand.nextInt(pandemicBoard.playerPile.size()); 
+    		  while(pandemicBoard.playerPile.get(rand_int1).equals(Variables.isEpidemic)) {
+    			  rand_int1 = rand.nextInt(pandemicBoard.playerPile.size()); 
+    			  Collections.shuffle(pandemicBoard.playerPile);
+    		  }
+    		//adds a new card to the players hand.
+         	 hand.add((City) pandemicBoard.playerPile.get(rand_int1));
+         	 pandemicBoard.playerPile.remove(rand_int1);//remove the card from PlayerDeck
+         	 System.out.println(this.getPlayerName() + " draws a card");
+    	  }
+    	  else
+    	  {
+    		 if (pandemicBoard.playerPile.size()!= 0)
+    		 {
+	        	 //first element from array list PlayerPile
+	              if (pandemicBoard.playerPile.get(0).equals(Variables.isEpidemic)) {            	  
+	            	  System.out.println("-----EPIDEMIC DRAWN!-----");
+	                  pandemicBoard.resolveEpidemic();//follow the steps for epidemic event
+	                  pandemicBoard.playerPile.remove(0);
+	                  break;
+	              }
+	              else 
+	              {
+	            	 //adds a new card to the players hand.
+	            	 hand.add((City) pandemicBoard.playerPile.get(0));
+	              }
+	              pandemicBoard.playerPile.remove(0);//remove the card from PlayerDeck
+	              System.out.println(this.getPlayerName() + " draws a card");
+	          }
+	          else
+	          {
+	              System.out.println("no more cards left");
+	          }
+    	  }
       }
   }
 

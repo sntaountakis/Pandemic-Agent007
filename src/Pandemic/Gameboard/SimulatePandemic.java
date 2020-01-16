@@ -176,6 +176,10 @@ public class SimulatePandemic
                 	gamePlayers[i].makeDecision(null,gamePlayers[i].getPlayerRole(),gamePlayers[i].getPlayerPiece().location);
                     checkGameOver();
                 }
+//                System.out.println(gamePlayers[0].getPlayerPiece().location);
+//                System.out.println(gamePlayers[1].getPlayerPiece().location);
+//                System.out.println(gamePlayers[2].getPlayerPiece().location);
+//                System.out.println(gamePlayers[3].getPlayerPiece().location);
                 
                 resetAllPlayerAction();
                 Variables.Suggestions[i]=gamePlayers[i].getSuggestions();
@@ -187,7 +191,7 @@ public class SimulatePandemic
                 if (!checkGameOver()) 
                 {
                    System.out.println(gamePlayers[i].getPlayerName() + " completed 4 actions");
-                   gamePlayers[i].drawCard(2);                
+                   gamePlayers[i].drawCard(2,false);                
                    gameBoard.infectCityPhase(gameBoard.getInfectionRate());
 
                }
@@ -272,12 +276,26 @@ public class SimulatePandemic
 	   gamePlayers[1].getPlayerPiece().location=f2_location;
 	   gamePlayers[2].getPlayerPiece().location=f3_location;
 	   gamePlayers[3].getPlayerPiece().location=f4_location;
-
+	   
+	   this.gameBoard.playerPieces[0].setLocation(f1_location);
+	   this.gameBoard.playerPieces[1].setLocation(f2_location);
+	   this.gameBoard.playerPieces[2].setLocation(f3_location);
+	   this.gameBoard.playerPieces[3].setLocation(f4_location);
+	   
 	   Variables.CITY_WITH_RESEARCH_STATION = f_ResearchStation;
 	   //
 	   
 	   }
    
+   public ArrayList<City> returnLocation() {
+	   ArrayList<City>   f_loc = new ArrayList<City>();
+	   f_loc.add(gamePlayers[0].getPlayerPiece().location);
+	   f_loc.add(gamePlayers[1].getPlayerPiece().location);
+	   f_loc.add(gamePlayers[2].getPlayerPiece().location);
+	   f_loc.add(gamePlayers[3].getPlayerPiece().location);
+	   return f_loc;
+	   
+   }
    public boolean checkGameOver()
    {
        if (checkGameWon())
@@ -376,7 +394,7 @@ public class SimulatePandemic
         {
         	i = i -1;
             System.out.println("drawing hand for " + gamePlayers[i].getPlayerName());
-            gamePlayers[i].drawCard(handSize);            
+            gamePlayers[i].drawCard(handSize,true);            
         }
     }
     

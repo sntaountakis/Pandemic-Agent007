@@ -28,6 +28,7 @@ public class Khartoum extends City {
 			this.neighbors.add(Variables.johannesburg);
 			this.neighbors.add(Variables.lagos);
 			this.neighbors.add(Variables.cairo);
+			this.neighbors.add(Variables.kinshasa);
 		}	
 	}
 }

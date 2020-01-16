@@ -31,6 +31,7 @@ public class Istanbul extends City {
 			this.neighbors.add(Variables.stpeterburg);
 			this.neighbors.add(Variables.moscow);
 			this.neighbors.add(Variables.cairo);
+			this.neighbors.add(Variables.baghdad);
 		}	
 	}
 }

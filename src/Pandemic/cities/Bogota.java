@@ -20,7 +20,7 @@ public class Bogota extends City {
 	public Bogota(int  redCubes, int blueCubes, int blackCubes,int  yellowCubes, int infectionLevel) {
 		super(redCubes,blueCubes,blackCubes,yellowCubes,infectionLevel);
 		this.name = "BOGOTA";
-		this.colour = "Blue";
+		this.colour = "Yellow";
 		
 	}
 	public ArrayList<City> getNeighbors() {return this.neighbors;}
