@@ -336,7 +336,7 @@ public class SimulatePandemic
     {
         for (int i = 0 ; i < 5 ; i++)
         {
-            System.out.println(" THE CIVILATION IS DEAD!");
+            System.out.println(" THE CIVILIZATION IS DEAD!");
         }
         
     }
